@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         Brainworm NeoRuneReader
-// @version      1.2
+// @version      1.2.1
 // @description  automagically decode brainworm runes
 // @author       github.com/Xx-hackerman-xX
 // @match        *://*.brainworm.rodeo/*
@@ -8,6 +8,7 @@
 // @icon         https://brainworm.surgery/src/c4ac663596de50d3.png
 // @grant        none
 // @run-at       document-idle
+// @downloadURL  https://raw.githubusercontent.com/Xx-hackerman-xX/brainworm-runereader/refs/heads/main/brainworm-runereader.js
 // ==/UserScript==
 
 /*
