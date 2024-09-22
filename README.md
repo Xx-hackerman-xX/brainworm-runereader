@@ -1,7 +1,16 @@
 # brainworm-runereader
 dechiper brainworm runes and make em look pretty :)
 
-----
+---
+
+## how to install
+
+1. install a browser extension like https://violentmonkey.github.io/ or equivalent
+2. add new script from URL, using the raw brainworm-runereader.js on this github:
+   
+   https://raw.githubusercontent.com/Xx-hackerman-xX/brainworm-runereader/refs/heads/main/brainworm-runereader.js
+4. wow amazing you did it i'm so proud of you #kiss
+---
 
 changelog:
 
