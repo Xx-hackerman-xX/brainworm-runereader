@@ -1,6 +1,8 @@
 # brainworm-runereader
 dechiper brainworm runes and make em look pretty :)
 
+![a gif demonstrating the unthinkable power of this extension](https://raw.githubusercontent.com/Xx-hackerman-xX/brainworm-runereader/refs/heads/main/demo.gif)
+
 ---
 
 ## how to install
