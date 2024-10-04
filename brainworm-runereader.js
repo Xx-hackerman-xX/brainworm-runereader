@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         Brainworm NeoRuneReader
-// @version      1.3
+// @version      1.3.1
 // @description  automagically decode brainworm runes
 // @author       github.com/Xx-hackerman-xX
 // @match        *://*.brainworm.rodeo/*
@@ -14,11 +14,12 @@
 /* excellent idea stolen gracelessly from rune-reader-mobile-temp by isabelle & sam & The Worm. icon is bury smoking a fatty blunt. */
 
 /*
-
-  new in v1.3
+  1.3.1
+  - fix silly function being called...
+  
+  1.3
   - toggle runereader with button in footer
     - just toggles css, issues with toggling the ciphering itself so gonna work on dat
-
 */
 
 /*
@@ -203,8 +204,6 @@ function main() {
   add_bottom_button()
   add_css()
   decipher_runes()
-
-  all_posts()
 }
 
 main()
