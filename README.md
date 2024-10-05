@@ -1,5 +1,5 @@
 # brainworm-runereader
-dechiper brainworm runes and make em look pretty :)
+dechiper brainworm (and libpol) runes and make em look pretty :)
 
 ![a gif demonstrating the unthinkable power of this extension](https://raw.githubusercontent.com/Xx-hackerman-xX/brainworm-runereader/refs/heads/main/demo.gif)
 
@@ -15,6 +15,17 @@ dechiper brainworm runes and make em look pretty :)
 ---
 
 changelog:
+
+1.3.2
+- added libpol support
+- script announcement in console
+
+1.3.1
+- fix silly function being called...
+
+1.3
+- toggle runereader with button in footer
+ - just toggles css, issues with toggling the ciphering itself so gonna work on dat
 
 1.2.1
 - auto update with @ downloadurl metadata
