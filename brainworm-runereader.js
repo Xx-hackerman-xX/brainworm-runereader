@@ -1,10 +1,11 @@
 // ==UserScript==
 // @name         Brainworm NeoRuneReader
-// @version      1.3.1
+// @version      1.3.2
 // @description  automagically decode brainworm runes
 // @author       github.com/Xx-hackerman-xX
 // @match        *://*.brainworm.rodeo/*
 // @match        *://*.brainworm.surgery/*
+// @match        *://*.libpol.org/*
 // @icon         https://brainworm.surgery/src/c4ac663596de50d3.png
 // @grant        none
 // @run-at       document-idle
@@ -14,9 +15,14 @@
 /* excellent idea stolen gracelessly from rune-reader-mobile-temp by isabelle & sam & The Worm. icon is bury smoking a fatty blunt. */
 
 /*
+
+  1.3.2
+  - added libpol support
+  - script announcement in console
+
   1.3.1
   - fix silly function being called...
-  
+
   1.3
   - toggle runereader with button in footer
     - just toggles css, issues with toggling the ciphering itself so gonna work on dat
@@ -34,11 +40,24 @@
 
 */
 
+function this_is_brainworm() { return window.location.href.includes("brainworm") }  // check where we are
+function this_is_libpol() { return window.location.href.includes("libpol") }
+
+var convert_to_random_string;  // different function names across sites, so we figure out which one to use for this instance
+if (this_is_brainworm()) {
+  convert_to_random_string = "convertToRandomStr"
+} else if (this_is_libpol()) {
+  convert_to_random_string = "convertToRandomString"
+} else {
+  console.log('# where the fuck am i')
+}
+
+
 var RUNEREADER_STATE = true  // start on
 
 const RUNEREADER_CSS_ELM_ID = "runereader-css"  // id of style elm with our fancy rules
-const FUNCTION_ENCIPHER = window.require.config('util/cipher').convertToRandomStr  // actually enciphers text
-const FUNCTION_DECIPHER = function(e,t) {return e}  // returns text unciphered. idk what the t var does lol
+const FUNCTION_ENCIPHER = window.require.config('util/cipher')[convert_to_random_string]  // actually enciphers text (gross)
+const FUNCTION_DECIPHER = function(e,t) {return e}  // returns text unciphered
 const TOGGLE_BUTTON_ID = "toggle-runereader"
 const RUNEREADER_ON = "runereader ON"
 const RUNEREADER_OFF = "runereader OFF"
@@ -145,6 +164,12 @@ const LOVELY_CSS = `
 
 `
 
+function announce_script_name() {
+  /* pretty announce script details in console */
+  console.log("%c[[ " + GM_info.script.name + " v" + GM_info.script.version + " loaded ]]", "color:lime; background:black;")
+}
+
+
 function add_css() {
   /* add our pretty css rules to doc header */
   let style = document.createElement("style")
@@ -158,22 +183,24 @@ function remove_css() {
   document.getElementById(RUNEREADER_CSS_ELM_ID).remove()
 }
 
+
 function decipher_runes() {
   /* this kills the ciphering function */
-  // this works by replacing the rune ciphering function with one that does nothing, and just returns the unciphered text
-  // opworm sometimes breaks this by renaming the convertToRandomStr function, so if it's broken then try searching for something similar in main.js to find the new name
-  window.require.config('util/cipher').convertToRandomStr = FUNCTION_DECIPHER
+  window.require.config('util/cipher')[convert_to_random_string] = FUNCTION_DECIPHER
 }
 
 function encipher_runes() {
   /* return normal rune enciphering */
-  window.require.config('util/cipher').convertToRandomStr = FUNCTION_ENCIPHER
+  window.require.config('util/cipher')[convert_to_random_string] = FUNCTION_ENCIPHER
 }
+
 
 function toggle_runereader() {
   /* toggle runereader on and off */
   RUNEREADER_STATE = !RUNEREADER_STATE  // invert
-  document.getElementById(TOGGLE_BUTTON_ID).firstChild.innerText = RUNEREADER_STATE? RUNEREADER_ON : RUNEREADER_OFF  // set button text
+  let link = document.getElementById(TOGGLE_BUTTON_ID).firstChild
+  link.innerText = RUNEREADER_STATE ? RUNEREADER_ON : RUNEREADER_OFF  // set button text
+  link.style = RUNEREADER_STATE ? "color:green;" : ""
   if (RUNEREADER_STATE) {  // turn on
     add_css()
     decipher_runes()
@@ -183,13 +210,16 @@ function toggle_runereader() {
   }
 }
 
+
 function add_bottom_button() {
   /* add toggle button to footer */
   let button = document.createElement("span")
   button.classList.add("act")  // all the cool kids are doing it
   button.id = TOGGLE_BUTTON_ID
   let link = document.createElement("a")
-  link.innerText = RUNEREADER_STATE? RUNEREADER_ON : RUNEREADER_OFF
+  link.innerText = RUNEREADER_STATE ? RUNEREADER_ON : RUNEREADER_OFF
+  link.style = RUNEREADER_STATE ? "color:green;" : ""
+  link.title = "click to toggle runereading"
   button.appendChild(link)
   let footer = document.getElementsByClassName("bottom-margin")[0]
   footer.appendChild(button)
@@ -197,10 +227,12 @@ function add_bottom_button() {
 }
 
 // function all_posts() {
+//   /* return obj containing all posts. i wanna use this to find posts to re-cipher / de-cipher again when toggling the actual runes, if that's possible */
 //   console.log(window.require.config('state').posts.models)
 // }
 
 function main() {
+  announce_script_name()
   add_bottom_button()
   add_css()
   decipher_runes()
