@@ -16,6 +16,9 @@ dechiper brainworm (and libpol) runes and make em look pretty :)
 
 changelog:
 
+1.3.3
+- fix libpol >:)
+
 1.3.2
 - added libpol support
 - script announcement in console
