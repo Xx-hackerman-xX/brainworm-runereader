@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         Brainworm NeoRuneReader
-// @version      1.3.3
+// @version      1.3.4
 // @description  automagically decode brainworm (and libpol) runes
 // @author       github.com/Xx-hackerman-xX
 // @match        *://*.brainworm.rodeo/*
@@ -15,6 +15,9 @@
 /* excellent idea stolen gracelessly from rune-reader-mobile-temp by isabelle & sam & The Worm. icon is bury smoking a fatty blunt. */
 
 /*
+
+  1.3.4
+  - better namespace detection (fix libpol...)
 
   1.3.3
   - fix libpol support >:)
@@ -53,14 +56,19 @@
 function this_is_brainworm() { return window.location.href.includes("brainworm") }  // check where we are
 function this_is_libpol() { return window.location.href.includes("libpol") }
 
-// bw and libpol use different config and function names, so use the relevant one
+// find the right window.requre.config namepsace
+var config_path = "util/cipher"
+try {
+  window.require.config(config_path)  // test
+} catch {  // we're on a page that requires client/ to be prepended for whatever reason
+  config_path = "client/" + config_path
+}
+
+// determine js function name for the conversion
 var convert_to_random_string;
-var config_path;
 if (this_is_brainworm()) {
-  config_path = "util/cipher"
   convert_to_random_string = "convertToRandomStr"
 } else if (this_is_libpol()) {
-  config_path = "client/util/cipher"
   convert_to_random_string = "convertToRandomString"
 }
 
