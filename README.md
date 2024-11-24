@@ -16,6 +16,9 @@ dechiper brainworm (and libpol) runes and make em look pretty :)
 
 changelog:
 
+1.3.4
+- better namespace detection (fix libpol...)
+
 1.3.3
 - fix libpol >:)
 
