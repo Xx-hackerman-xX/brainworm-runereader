@@ -16,6 +16,12 @@ dechiper brainworm (and libpol) runes and make em look pretty :)
 
 changelog:
 
+1.3.5
+- remove debug strings that were sometimes visible on self-image text
+- better handling of public commands
+- remove references to brainworm... rip...
+- probably broke some shit but i'll just run with it for now
+
 1.3.4
 - better namespace detection (fix libpol...)
 
