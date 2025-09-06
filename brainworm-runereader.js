@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         Wormlang RuneReader
-// @version      1.4
+// @version      1.4.1
 // @description  automagically decode wormlang runes
 // @match        *://*.libpol.org/*
 // @run-at       document-idle
@@ -14,7 +14,7 @@
 
 /*
 
-  1.4
+  1.4.1
   - new feature: click magnifying glass on a post to reveal its true contents
   - fix broken runes after update
   - code cleanup
@@ -216,7 +216,7 @@ article:hover .reveal-button {
 /* runereader */
 
 const FUNCTION_ENCIPHER = windowRequire("util/cipher").convertToRandString  // normal cypher function
-const FUNCTION_DECIPHER = function(e,t) { return e }  // return uncophered text >:)
+const FUNCTION_DECIPHER = function(e,t) { return e.replace(/</g, "&lt;").replace(/>/g, "&gt;") }  // return uncophered text >:)
 
 function encipherRunes() {
   // show runes as original madoka runes
