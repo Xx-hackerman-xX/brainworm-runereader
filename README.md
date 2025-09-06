@@ -16,7 +16,7 @@ dechiper brainworm (and libpol) runes and make em look pretty :)
 
 changelog:
 
-1.4
+1.4.1
 - new feature: click magnifying glass on a post to reveal its true contents
 - fix broken runes after update
 - code cleanup
